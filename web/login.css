@@ -1,0 +1,136 @@
+.base_{
+  margin: 0 auto;
+  max-width : 1024px;
+
+}
+
+.header_root{
+  position: fixed;
+  width : 1024px;
+  hight : auto;
+  display: inline-block;
+  text-align: center;
+  background-color: rgba(254, 254, 254, 1);
+}
+
+.header_base1{
+  margin: 3px 3px 3px 3px;
+}
+
+.header_logo{
+  background-image: url('jeans.jpg');
+  background-size: 131px 47px;
+  width: 131px;
+  height: 47px;
+  display: inline-block;
+  right: 30px; /* 수정 ( 로그인 크기에 맞게)*/
+}
+
+.login_center{
+  padding-top: 200px;
+  width: 1000px;
+  height: 500px;
+  background-color: gray;
+  margin: 0 auto;
+}
+
+.login{
+  margin: 0 auto;
+  background-color: white;
+  width: 500px;
+  height: 400px;
+}
+
+
+.id_pw_join{
+  padding-left: 5px;
+}
+
+.logo_div{
+  padding-top: 10px;
+  padding-bottom: 50px;
+  margin: 0 auto;
+  width: 500px;
+  height: 50px;
+  text-align: center;
+}
+
+
+.id_text{
+  width: 400px;
+  height: 30px;
+  padding-bottom: 10px;
+}
+
+.id_textarea{
+  width: 400px;
+  height: 30px;
+}
+
+.password_text{
+  position:absolute;
+  width: 400px;
+  height: 30px;
+  padding-bottom: 10px;
+}
+
+.password_textarea{
+  width: 400px;
+  height: 30px;
+}
+
+.submit_button{
+  position: relative;
+  left: 420px;
+  bottom: 38px;
+  width: 70px;
+  height: 70px;
+}
+
+input.submit_button_input{
+  width: 70px;
+  height: 70px;
+}
+
+.id_pw_search{
+  width: 500px;
+  height: 100px;
+}
+
+.id_div{
+  padding-left: 415px;
+  width: 80px;
+  height: 50px;
+}
+
+
+button.id_button{
+  width: 80px;
+  height: 40px;
+}
+
+.pw_div{
+  padding-left: 415px;
+  width: 80px;
+  height: 50px;
+}
+
+button.pw_button{
+  width: 80px;
+  height: 40px;
+}
+
+.sign{
+  width: 500px;
+  height: 50px;
+}
+
+.sign_div{
+  padding-left: 415px;
+}
+
+button.sign_button{
+
+  width: 80px;
+  height: 40px;
+}
