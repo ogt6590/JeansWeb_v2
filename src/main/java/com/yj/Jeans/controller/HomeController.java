@@ -31,6 +31,7 @@ public class HomeController {
 
     @GetMapping("/logout")
     public String logout(){
+        session.invalidate(); //로그아웃하면 session에 모든것을 지운다
         return "index";
     }
 

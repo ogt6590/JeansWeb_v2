@@ -88,7 +88,7 @@
                 <br/><br/>
                 <textarea placeholder="글내용"name="content"></textarea>
                 <br/><br/>
-                <input type="text"th:value="${session.loginUser.getUsername()}">
+                <input type="hidden" name="writer"th:value="${session.loginUser.getUsername()}">
                 <input type="submit"value="글쓰기">
             </form>
         </div>

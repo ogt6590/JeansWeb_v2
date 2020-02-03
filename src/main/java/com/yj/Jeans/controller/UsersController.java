@@ -23,7 +23,7 @@ public class UsersController {
 
     @PostMapping("/joinRequest")   //@RequestParam은 맵형식으로 정보를 받아오고 null값이면 오류가뜬다
     public String joinRequest(@RequestParam Map<String,String> paramMap){
-
+                                //웹페이지에 있는 모든정보를 저장 paramap에
         String userId=paramMap.get("user_id");
         String userPw=paramMap.get("user_pw");
         String userName=paramMap.get("user_name");

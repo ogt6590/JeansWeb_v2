@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 
+
 //controller view 화면 리턴이 주목적
 @Controller
 public class FreeboardController {
@@ -37,12 +38,14 @@ public class FreeboardController {
 
     @PostMapping("/freeboardWriteRequest") //post 접근할때 값 리턴
     public String freeboardWriteRequest(@RequestParam Map<String,String> paramMap){
-                                  //받아올 정보가많을때 Map 형식으로 대량으로 받아옴 단점이 개발한사람외에 사람이
-                                    //알아먹기 힘듬
+                                    //@RequestParam 웹에 정보를 받아올때 사용
+                                  //받아올 정보가많을때 위에는 pagaNum하나만 들고오면 되지만
+                                //아래처럼 title content writer 처럼 여러개 받아올때는
+                                // Map 형식으로 대량으로 받아옴
+                                // 단점이 개발한사람외에 사람이알아먹기 힘듬
         String title=paramMap.get("title");
         String content=paramMap.get("content");
         String writer=paramMap.get("writer");
-
         freeboardWriteService.write(title,content,writer);
 
         return "redirect:/freeboard";
