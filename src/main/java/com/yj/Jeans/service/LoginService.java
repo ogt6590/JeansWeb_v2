@@ -29,15 +29,19 @@ public class LoginService {
        String hashedPassword = userPasswordhashClass.getSHA256(userPw);   // 해쉬패스워드 값받기
 
         Users users=usersRepository.findByUseridAndPassword(userId,hashedPassword);
-        //디비에서 입력받은값이랑 일치하는 아이디 해쉬비밀번호 찾아서 넘겨주기
 
+        //디비에서 입력받은값이랑 일치하는 아이디 해쉬비밀번호 찾아서 넘겨주기
+        //
         if(users==null){
             return "login";  //디비에서 못찾으면 null 값이니까 다시 로그인 페이지로
         }
 
         session.setAttribute("loginUser",users); //세션에속성을 정해줌 세션을 만들기위헤 name에 ,vlaue[users]값할당
 
-        return "index";  //로그인하여 기본페이지로
+        if(users.getRole()==0)//유저의 역할 변수가0 즉 관리자다.
+            return "adminIndex";
+        else
+            return "index";  //로그인하여 기본페이지로
     }
 
 }

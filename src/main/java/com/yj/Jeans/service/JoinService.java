@@ -26,9 +26,11 @@ public class JoinService {
 
         Users users=new Users(); //디비객체생성
         users.setUserid(userId);
+        users.setRole(1);//회원은 무조건 역할값이 1이다.
         String hashedPassword=userPasswordhashClass.getSHA256(userPw); //패스워드를 해쉬로 바꿔서 넘겨줌
         users.setPassword(hashedPassword);
         users.setUsername(userName);
+
 
         usersRepository.save(users); //세이브 디비에 저장하는 함수
         return "index";   //회원가입 하여 기본 페이지로 넘어감
