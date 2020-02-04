@@ -9,7 +9,7 @@ Spring:
 
   jpa:
     hibernate:
-      ddl-auto: create # create자동으로 테이블 만들어줌 전부 삭제하고 다시생성 운영서버사용 절대금지 validate 변환이 있으면 변환만추가
+      ddl-auto: validate # create자동으로 테이블 만들어줌 전부 삭제하고 다시생성 운영서버사용 절대금지 validate 변환이 있으면 변환만추가
       use-new-id-generator-mappings: false # GenerationType.AUTO 하면 1씩 올라가는데 회원가입 게시판 둘다 숫자 공용되서 1이 2가되서공용안되게 바꿈
     properties: #hibernate 특정한걸 쓸수있음
       hibernate:

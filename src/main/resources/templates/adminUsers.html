@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>스프링부트 게시판 관리자용</title>
-  <!--  <title th:if="${session.loginUser.getRole()==0}">스프링부트 게시판 관리자용</title>
-   <title th:else="${session.loginUser.getRole()==0}">스프링부트 게시판 관리자용</title>-->
+    <title>스프링부트 관리자 게시판</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
+
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
             margin-bottom: 0;
@@ -17,7 +16,9 @@
         }
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 450px}
+        .row.content {
+            height: 450px
+        }
 
         /* Set gray background color and 100% height */
         .sidenav {
@@ -39,9 +40,23 @@
                 height: auto;
                 padding: 15px;
             }
-            .row.content {height:auto;}
+
+            .row.content {
+                height: auto;
+            }
         }
     </style>
+    <script>
+        function page(pageNum){
+            location.href="/freeboard?pageNum="+pageNum;
+        }
+
+        <!--getPost 메소드는 글 번호를 가지고 온다-->
+        function getPost(freeid){
+            location.href="/freeBoardInfo?freeid="+freeid;
+        }  //함수사용해서 값받아올려고 사용
+    </script>
+
 </head>
 <body>
 
@@ -59,17 +74,13 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/freeboard">Freeboard</a></li>
-<!--                <li><a href="#">Projects</a></li>-->
-<!--                <li><a href="#">Contact</a></li>-->
+                <li><a href="/adminusers">유저목록</a></li>
+                <!--                <li><a href="#">Projects</a></li>-->
+                <!--                <li><a href="#">Contact</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.loginUser==null}"><a href="/joinPage"><span class="glyphicon glyphicon-log-in"></span> Join</a></li>
-                <!--회원가입 페이지 -->
-                <li th:if="${session.loginUser==null}"><a href="/loginPage"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <!--로그인 페이지 -->
-                <li th:if="${session.loginUser!=null}"><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Loout</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Loout</a></li>
                 <!--로그아웃 페이지 -->
-                <!--th:if="${session.loginUser!=null} 로그인하면 로그아웃버튼 나오기-->
             </ul>
         </div>
     </div>
@@ -83,11 +94,35 @@
             <p><a href="#">Link</a></p>
         </div>
         <div class="col-sm-8 text-left">
-            <h1>Welcome</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <hr>
-            <h3>Test</h3>
-            <p>Lorem ipsum...</p>
+            <h4>유저목록</h4>
+          <!--  <a  th:if="${session.loginUser!=null}" href="/freeboardWritePage">글쓰기</a>
+            <a  th:if="${session.loginUser==null}" href="/loginPage">글쓰기</a>-->
+            <table>
+                <thead>
+                <tr>
+                    <th>&nbsp&nbsp유저Id&nbsp&nbsp&nbsp</th>
+                    <th>&nbsp&nbsp유저이름&nbsp&nbsp&nbsp</th>
+                </tr>
+                <th:block th:if="${session.boardList!=null}"><!--조건이 맞으면 하위태그실행-->
+                    <th:block th:each="board:${session.boardList}"><!--갖고있는 게시판 만큼 출력반복문-->
+                        <tr>
+                            <td><span th:text="${board.getFreeid()}"></span></td>
+                            <td><a th:onclick="|javascript:getPost('${board.getFreeid()}')|" th:text="${board.getTitle()}"></a></td>
+                            <td><span th:text="${board.getWriter()}"></span></td>
+                        </tr>
+                    </th:block>
+                </th:block>
+                </thead>
+            </table>
+
+            <!--페이지 번호-->
+            <a th:if="${session.pageMaker.isPrev()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.pageMaker.getStartPage()}')|">&laquo;</a>
+            <th:block th:each="pageNum:${#numbers.sequence(session.pageMaker.getStartPage(),session.pageMaker.getEndPage())}">
+                &nbsp;<a th:text="${pageNum}" th:onclick="|javascript:page('${pageNum}')|"></a>&nbsp;
+            </th:block>
+            <a th:if="${session.pageMaker.isNext()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.pageMaker.getEndPage()}')|">&raquo;</a>
+
+
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">

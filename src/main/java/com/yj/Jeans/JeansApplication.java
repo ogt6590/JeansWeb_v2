@@ -22,7 +22,7 @@ public class JeansApplication {
 
 		SpringApplication.run(JeansApplication.class, args);
 	}
-
+/*
 	@PostConstruct
 	public void initAdmin(){
 		Users users= Users.builder()
@@ -33,4 +33,6 @@ public class JeansApplication {
 				.build();
 		userRepository.save(users);
 	}//유저 추가 주석 다시 껏다 킬때 주석 처리 필요
+*/
 }
+
