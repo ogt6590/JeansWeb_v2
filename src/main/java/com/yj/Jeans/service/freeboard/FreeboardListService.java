@@ -26,19 +26,23 @@ public class FreeboardListService {
     @Autowired
     private PageMakerService pageMakerService;
 
+    //현재 페이지 번호를 FreeboardController에게서 매개변수로 받는다.
     public String freeboardList(int pageNum){
 
         PageMaker pageMaker =pageMakerService.generatePageMaker(pageNum,10,freeboardRepository);
                                                                         //contentNum 게시글최대 개수
         PageRequest pageRequest=PageRequest.of(pageNum-1,10,Sort.Direction.DESC,"freeid" );
+        //PageRequest 정렬 방향과 속성을 적용하여 새로 만듭니다.
         Page<Freeboard> freeboardPage =freeboardRepository.findAll(pageRequest);
                                         // findAll디비에서 전체 페이지정보 가져오기 size:10은 글내용이 10개다
 
         if(freeboardPage.getSize()==0){   // 0이면  가져올 게시글이 없다
 
-             session.setAttribute("boardList",new ArrayList<Freeboard>());
-             //null값주면 페이지에러떠서 값을 0으로 준다
+            session.setAttribute("boardList",new ArrayList<Freeboard>());
+            //추측 freeboard.html에서 boardList 세션 사용
+            //null값주면 페이지에러떠서 값을 0으로 준다
             session.setAttribute("pageMaker",pageMaker);
+            //추측 freeboard.html 에서 pageMaker 세션 사용
              return "freeboard";
         }
 

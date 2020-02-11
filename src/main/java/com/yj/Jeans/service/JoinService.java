@@ -5,9 +5,6 @@ import com.yj.Jeans.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
-
 // 로직 처리부분
 @Service
 public class JoinService {

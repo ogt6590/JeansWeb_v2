@@ -2,16 +2,18 @@ package com.yj.Jeans.service.freeboard;
 
 import com.yj.Jeans.PageMaker.PageMaker;
 import com.yj.Jeans.model.Freeboard;
+import com.yj.Jeans.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PageMakerService {
 
+    //pageNum은 현재 몇 페이지인지. contentNum은 한 페이지 당 최대 글 개수.
     public PageMaker generatePageMaker(int  pageNum, int contentNum, JpaRepository<Freeboard,Long>repository){
         PageMaker pageMaker=new PageMaker();
 
-        int totalCount=(int)repository.count();
+        int totalCount=(int)repository.count();//count 엔티티의 수를 int 값으로 반환한다.
         pageMaker.setTotalcount(totalCount); //전체 게시글 수를 지정한다.
         pageMaker.setPagenum(pageNum-1);//현재 페이지를 페이지 객체에 지정한다. -1를 해야 쿼리에서 사용할수 있다
         pageMaker.setContentnum(contentNum); //한페이지에 몇개씩 게시글을 보여줄지 지정한다.
@@ -24,5 +26,6 @@ public class PageMakerService {
 
         return pageMaker;
     }
-
 }
+
+//JpaRepository 에 관하여 https://araikuma.tistory.com/329

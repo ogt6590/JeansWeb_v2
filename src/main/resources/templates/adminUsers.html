@@ -47,14 +47,6 @@
         }
     </style>
     <script>
-        function page(pageNum){
-            location.href="/freeboard?pageNum="+pageNum;
-        }
-
-        <!--getPost 메소드는 글 번호를 가지고 온다-->
-        function getPost(freeid){
-            location.href="/freeBoardInfo?freeid="+freeid;
-        }  //함수사용해서 값받아올려고 사용
     </script>
 
 </head>
@@ -74,12 +66,12 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/freeboard">Freeboard</a></li>
-                <li><a href="/adminusers">유저목록</a></li>
+                <li th:if="${session.loginUser!=null&&session.loginUser.getRole()==0}"><a href="/adminusers">유저목록</a></li>
                 <!--                <li><a href="#">Projects</a></li>-->
                 <!--                <li><a href="#">Contact</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Loout</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                 <!--로그아웃 페이지 -->
             </ul>
         </div>
@@ -93,34 +85,29 @@
             <p><a href="#">Link</a></p>
             <p><a href="#">Link</a></p>
         </div>
+
         <div class="col-sm-8 text-left">
             <h4>유저목록</h4>
-          <!--  <a  th:if="${session.loginUser!=null}" href="/freeboardWritePage">글쓰기</a>
-            <a  th:if="${session.loginUser==null}" href="/loginPage">글쓰기</a>-->
             <table>
                 <thead>
                 <tr>
-                    <th>&nbsp&nbsp유저Id&nbsp&nbsp&nbsp</th>
+                    <th>&nbsp&nbsp유저Id번호&nbsp&nbsp&nbsp</th>
                     <th>&nbsp&nbsp유저이름&nbsp&nbsp&nbsp</th>
+                    <th>&nbsp&nbsp유저닉네임&nbsp&nbsp&nbsp</th>
+                    <th>&nbsp&nbsp유저역할&nbsp&nbsp&nbsp</th>
                 </tr>
-                <th:block th:if="${session.boardList!=null}"><!--조건이 맞으면 하위태그실행-->
-                    <th:block th:each="board:${session.boardList}"><!--갖고있는 게시판 만큼 출력반복문-->
+                <th:block th:if="${session.userList!=null}">
+                <th:block th:each="users:${session.userList}">
                         <tr>
-                            <td><span th:text="${board.getFreeid()}"></span></td>
-                            <td><a th:onclick="|javascript:getPost('${board.getFreeid()}')|" th:text="${board.getTitle()}"></a></td>
-                            <td><span th:text="${board.getWriter()}"></span></td>
+                            <td><span th:text="${users.getId()}"></span></td>
+                            <td><span th:text="${users.getUserid()}"></span></td>
+                             <td><span th:text="${users.getUsername()}"></span></td>
+                            <td><span th:text="${users.getRole()}"></span></td>
                         </tr>
                     </th:block>
                 </th:block>
                 </thead>
             </table>
-
-            <!--페이지 번호-->
-            <a th:if="${session.pageMaker.isPrev()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.pageMaker.getStartPage()}')|">&laquo;</a>
-            <th:block th:each="pageNum:${#numbers.sequence(session.pageMaker.getStartPage(),session.pageMaker.getEndPage())}">
-                &nbsp;<a th:text="${pageNum}" th:onclick="|javascript:page('${pageNum}')|"></a>&nbsp;
-            </th:block>
-            <a th:if="${session.pageMaker.isNext()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.pageMaker.getEndPage()}')|">&raquo;</a>
 
 
         </div>

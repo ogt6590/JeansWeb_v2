@@ -1,20 +1,26 @@
 package com.yj.Jeans.controller;
 
+
+import com.yj.Jeans.service.userboard.UsercheckListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AdminController {
-    @GetMapping("/adminIndex")
-    public String index(){
-        return "adminIndex";
-    }//관리자 인덱스페이지로
+
+    @Autowired
+    UsercheckListService UsercheckList;
+
+    private int returnIntValue(String stringToInt){
+         return Integer.parseInt(stringToInt);
+    }
 
     @GetMapping("/adminusers")
     public String userList(){
-        return "adminUsers";
-    }//유저 목록홈페이지로
-
+       String page= UsercheckList.showUsers();
+        return page;
+    }
 }

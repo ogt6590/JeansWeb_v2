@@ -38,9 +38,6 @@ public class LoginService {
 
         session.setAttribute("loginUser",users); //세션에속성을 정해줌 세션을 만들기위헤 name에 ,vlaue[users]값할당
 
-        if(users.getRole()==0)//유저의 역할 변수가0 즉 관리자다.
-            return "adminIndex";
-        else
             return "index";  //로그인하여 기본페이지로
     }
 

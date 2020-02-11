@@ -47,6 +47,7 @@
         }
     </style>
     <script>
+        //경피셜~ 여기다 만드니까 처음실행할때 실행되더라~
         function page(pageNum){
             location.href="/freeboard?pageNum="+pageNum;
         }
@@ -59,6 +60,19 @@
 
 </head>
 <body>
+
+<script>
+    function boardDelete(FreeId) {
+        var delConfirm = confirm('게시글을 삭제 하시겠습니까?');//confirm 자바스크립트 자체 경고문!
+        if (delConfirm) {//true
+            alert('삭제되었습니다.');
+            location.href="/delete?FreeId="+FreeId;// /delete 에 FreeId 값을 붙여서 보낸다. ? 추가 정보로 보내는 거같다
+        }
+        else {
+            alert('삭제가 취소되었습니다.');
+        }
+    }
+</script>
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -74,6 +88,8 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/freeboard">Freeboard</a></li>
+                <li th:if="${session.loginUser!=null&&session.loginUser.getRole()==0}"><a href="/adminusers">유저목록</a></li>
+
                 <!--                <li><a href="#">Projects</a></li>-->
                 <!--                <li><a href="#">Contact</a></li>-->
             </ul>
@@ -107,6 +123,13 @@
             <textarea th:text="${session.freeboard.getContent()}" readonly="readonly"></textarea>
                                 <!--freeboardinfoservice에서 만든 세션 활용 readonly 읽기기능만가능 -->
             <br><br>
+
+        <form  th:if="${session.loginUser!=null}">
+            <input th:if="${session.loginUser.getRole()==0||session.loginUser.getUsername().equals(session.freeboard.getWriter())}"
+                   th:onclick="|javascript:boardDelete('${session.freeboard.getFreeid()}')|" type="button"value="삭제">
+            <!--관리자 모드면 삭제버튼 나옴 -->
+            <!--작성자가 본인게시글 들어가면 삭제버튼 나옴 -->
+        </form>
 
         </div>
         <div class="col-sm-2 sidenav">
