@@ -152,7 +152,4 @@ public class PageMaker {
         this.contentnum = contentnum;
     }
 
-
 }
-
-

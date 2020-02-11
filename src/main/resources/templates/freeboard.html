@@ -128,6 +128,7 @@
             <!--페이지 번호-->
             <a th:if="${session.pageMaker.isPrev()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.pageMaker.getStartPage()}')|">&laquo;</a>
             <th:block th:each="pageNum:${#numbers.sequence(session.pageMaker.getStartPage(),session.pageMaker.getEndPage())}">
+                <!--#numbers.sequence(A,B) Thymealf 메서드 A부터 B까지 정수 시퀸스 생성-->
                 &nbsp;<a th:text="${pageNum}" th:onclick="|javascript:page('${pageNum}')|"></a>&nbsp;
             </th:block>
             <a th:if="${session.pageMaker.isNext()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.pageMaker.getEndPage()}')|">&raquo;</a>

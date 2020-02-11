@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!--userpageMaker 라는 세션을 사용한다. 이 세션은 페이지번호를 만드는 데 사용되는 세션이다.-->
     <title>스프링부트 관리자 게시판</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,10 +48,37 @@
         }
     </style>
     <script>
+        function page(pageNum){
+            location.href="/adminusers?userpageNum="+pageNum;
+        }
+        /*페이지를 이동하는 데 사용되는 스크립트 문. 최대의문 /adminusers?userpageNum에서 userpageNum을 pageNum으로 하면 작동이 안된다.
+        뇌피셜 : adminusers?userpageNum="+pageNum 에서 ="+ 이 오른쪽꺼 왼쪽에 집어 넣는 다고 생각했을 때 userpageNum이라는 세션?어쨋든 그 userpageNum이라는 변수(?세션)값에다가
+        pageNum을 집어 넣는다. 그래서 userpageNum만되는거 아닐까? AdminController에서 @RequestParamap 의 value가 userpageNum이니까 이게 똑같아야 인식이되는것이다?
+         */
     </script>
 
 </head>
 <body>
+
+<script>
+    function userDelete(userid,userRole) {
+
+        var delConfirm = confirm('회원을 삭제 하시겠습니까?');//confirm 자바스크립트 자체 경고문!
+
+        if (delConfirm) {//true
+
+            if(userRole==0)  //받은 롤값을 검사하여 관리자 면 삭제를 못하게 한다
+                alert('관리자는 삭제할수 없습니다');
+            else {
+                location.href = "/userDelete?userid=" + userid;// /delete 에 FreeId 값을 붙여서 보낸다. ? 추가 정보로 보내는 거같다
+                alert('삭제되었습니다.');
+            }
+        }
+        else {
+            alert('삭제가 취소되었습니다.');
+        }
+    }
+</script>
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -98,16 +126,25 @@
                 </tr>
                 <th:block th:if="${session.userList!=null}">
                 <th:block th:each="users:${session.userList}">
-                        <tr>
-                            <td><span th:text="${users.getId()}"></span></td>
-                            <td><span th:text="${users.getUserid()}"></span></td>
-                             <td><span th:text="${users.getUsername()}"></span></td>
-                            <td><span th:text="${users.getRole()}"></span></td>
-                        </tr>
+                    <tr>
+                        <td><span th:text="${users.getId()}"></span></td>
+                        <td><span th:text="${users.getUserid()}"></span></td>
+                        <td><a th:onclick="|javascript:userDelete('${users.getId()}','${users.getRole()}')|" th:text="${users.getUsername()}"></a></td>
+                        <!--아이디클릭시 유저 아이디와 롤값을 자바스크립트 함수로 보낸다-->
+                        <td><span th:text="${users.getRole()}"></span></td>
+                    </tr>
                     </th:block>
                 </th:block>
                 </thead>
             </table>
+
+            <!--유저 목록의 페이지 번호-->
+            <a th:if="${session.userpageMaker.isPrev()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.userpageMaker.getStartPage()}')|">&laquo;</a>
+            <th:block th:each="userpageNum:${#numbers.sequence(session.userpageMaker.getStartPage(),session.userpageMaker.getEndPage())}">
+                <!--#numbers.sequence(A,B) Thymealf 메서드 A부터 B까지 정수 시퀸스 생성-->
+                &nbsp;<a th:text="${userpageNum}" th:onclick="|javascript:page('${userpageNum}')|"></a>&nbsp;
+            </th:block>
+            <a th:if="${session.userpageMaker.isNext()}" style="text-decoration: none;" th:onclick="|javascript:page('${session.userpageMaker.getEndPage()}')|">&raquo;</a>
 
 
         </div>

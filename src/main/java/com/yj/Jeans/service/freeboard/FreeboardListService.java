@@ -29,7 +29,7 @@ public class FreeboardListService {
     //현재 페이지 번호를 FreeboardController에게서 매개변수로 받는다.
     public String freeboardList(int pageNum){
 
-        PageMaker pageMaker =pageMakerService.generatePageMaker(pageNum,10,freeboardRepository);
+        PageMaker pageMaker =pageMakerService.generatePageMaker(pageNum,10,freeboardRepository);//pageMakerService에서 자동으로 -1해준다.
                                                                         //contentNum 게시글최대 개수
         PageRequest pageRequest=PageRequest.of(pageNum-1,10,Sort.Direction.DESC,"freeid" );
         //PageRequest 정렬 방향과 속성을 적용하여 새로 만듭니다.
@@ -52,8 +52,6 @@ public class FreeboardListService {
         //게시판 정보를 세션에 넣기
         session.setAttribute("pageMaker",pageMaker);
 
-
         return "freeboard";
     }
-
 }
