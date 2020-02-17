@@ -20,7 +20,7 @@ public class FreeboardInfoService {
     public String getFreeboardPost(String stringFreeId){
             //게시글번호 넘겨주는 메소드
         Long freeid=Long.parseLong(stringFreeId);  //문자열값을 long형으로 바꿈
-        Freeboard freeboard=freeboardRepository.findByFreeid(freeid);  //레포지토리에 기본키넘기고
+        Freeboard freeboard=freeboardRepository.findByFreeid(freeid);  //레포지토리에 검색
         if(freeboard==null){
             return "freeboard";  //같은게 없으면 게시판 으로감
         }

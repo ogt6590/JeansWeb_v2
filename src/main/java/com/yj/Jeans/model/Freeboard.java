@@ -4,9 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+
 @Data  //getter setter
-@Entity  //jpa 아 관리하는 기능 선언
-@Table(name = "freeboard")  //freeboard 테이블과 연결한다
+@Entity  //저장되기 위한 어떤 집합적인 것(Thing:사람,장소,물건,사건,개념).
+@Table(name = "freeboard")  //테이블이름
 public class Freeboard {
 
     @Id

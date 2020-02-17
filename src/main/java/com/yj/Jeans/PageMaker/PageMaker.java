@@ -66,8 +66,7 @@ public class PageMaker {
 
     public void setCurrentBlock(int pagenum) {//현재 페이지 블록의 번호가 몇번인지 지정해주는 함수
 //        페이지번호 / 페이지 그룹 안의 페이지 개수(5)
-//        ->나머지 있으면 더하기 1한다. -> 이 결과를 현재 블록 번호라고 부른다. cblock
-
+//        ->나머지 있으면 더하기 1한다. -> 이 결과를 현재 블록 번호라고 부른다.cblock
         this.currentblock = pagenum/5;
         if (pagenum%5>0) {
             this.currentblock++;
@@ -99,7 +98,6 @@ public class PageMaker {
         else if(getLastblock()==getCurrentblock()) {//5개씩 페이지의 그룹번호를 지정한다.
             //그룹 번호가 3이라는 것은 해당 페이지 그룹이 마지막이라는 것이기에 이전 화살표만 활성화한다
             //이 두개가 같다면 마지막 블록이므로 이전만 있고 이후가 없다.
-
             setPrev(true);
             setNext(false);
         }

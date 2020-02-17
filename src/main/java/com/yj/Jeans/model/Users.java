@@ -20,8 +20,11 @@ public class Users {
     private Long id;
 
     private String userid;
+
     private String password;
+
     private String username;
+
     private int role;//관리자 유무 파악 0이면관리자 1이면 유저
 
 }

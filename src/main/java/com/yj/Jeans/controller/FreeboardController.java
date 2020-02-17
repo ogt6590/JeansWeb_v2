@@ -38,7 +38,6 @@ public class FreeboardController {
 
     @PostMapping("/freeboardWriteRequest") //post 접근할때 값 리턴
     public String freeboardWriteRequest(@RequestParam Map<String,String> paramMap){
-        //@RequestParam 웹에 정보를 받아올때 사용
         //받아올 정보가많을때 위에는 pagaNum하나만 들고오면 되지만
         //아래처럼 title content writer 처럼 여러개 받아올때는
         // Map 형식으로 대량으로 받아옴
@@ -66,7 +65,7 @@ public class FreeboardController {
 
     @GetMapping("delete")
     public String delete(@RequestParam("FreeId")Long FreeId) {//매개변수로 그 페이지 FreeId를 Long으로 받아온다.
-        freeboardDeleteService.delete(FreeId);//서비스 부에 딜리티 메서드에 보낸다.
+        freeboardDeleteService.delete(FreeId);
 
         return "redirect:/freeboard";
         //내가쓴거 포함해서 리다이렉트로  불러옴

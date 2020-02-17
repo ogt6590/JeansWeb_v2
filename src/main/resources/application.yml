@@ -1,6 +1,6 @@
 Spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/Desktop/test    #여러개가 한번에 접근할떄 빨리처리됨 권장임
+    url: jdbc:h2:tcp://localhost/~/Desktop/db/jeansDb   #여러개가 한번에 접근할떄 빨리처리됨 권장임
     username: root
     password: root
     driver-class-name: org.h2.Driver
